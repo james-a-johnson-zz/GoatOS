@@ -1,5 +1,6 @@
 #include "tty.h"
 #include "string.h"
+#include "io.h"
 
 /*
  * This is a library to used for outputting to the terminal screen.
@@ -14,7 +15,7 @@
  *
  *
  * TODO(jaj): Implement:
- *              scrolling,         Not currently working
+ *              scrolling,         It works now
  *              terminal_writehex, Implemented
  *              terminal_writedec,
  *              cursor functions
@@ -80,6 +81,7 @@ void terminal_putchar(char c) {
             }
         }
     }
+    update_cursor();
 }
 
 // Writes a string to the terminal screen.
@@ -132,4 +134,12 @@ void terminal_writedec(uint32_t n) {
     }
 
     terminal_writestring(string);
+}
+
+void update_cursor() {
+    uint16_t location = terminal_row * 80 + terminal_column;
+    outb(0x3D4, 14);
+    outb(0x3D5, location >> 8);
+    outb(0x3D4, 15);
+    outb(0x3D5, location);
 }

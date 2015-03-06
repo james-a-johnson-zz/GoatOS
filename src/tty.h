@@ -51,5 +51,6 @@ void terminal_writestring(const char*);
 void scroll(void);
 void terminal_writehex(uint32_t);
 void terminal_writedec(uint32_t);
+void update_cursor(void);
 
 #endif

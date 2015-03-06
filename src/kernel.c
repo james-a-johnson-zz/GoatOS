@@ -9,6 +9,8 @@
 void kernel_main() {
     asm volatile ("int $0x00");
     asm volatile ("int $0x01");
+    asm volatile ("int $0x02");
+    asm volatile ("int $0x03");
 
     terminal_writehex(0x000AE112);
 }
